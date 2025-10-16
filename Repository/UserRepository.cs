@@ -4,14 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
+using store_management.Infrastructure.Data;
 
 namespace store_management.Repository
 {
     public class UserRepository : IUserRepository, IDisposable
     {
+        private AppDbContext context;
+        public UserRepository(AppDbContext context)
+        {
+            this.context = context;
+        }
         public void DeleteUser(int user_id)
         {
-            throw new NotImplementedException();
+            Users user = context.Users.Find(user_id);  
+            if (user != null)
+            {
+                context.Users.Remove(user);  
+            }
         }
 
         public void Dispose()
@@ -26,22 +36,41 @@ namespace store_management.Repository
 
         public IEnumerable<Users> GetUsers()
         {
-            throw new NotImplementedException();
+            return context.Users.ToList();
         }
 
         public void InsertUser(Users user)
         {
-            throw new NotImplementedException();
+            context.Users.Add(user);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public void UpdateUser(Users user)
         {
-            throw new NotImplementedException();
+            context.Entry(user).State = EntityState.Modified;
+        }
+
+        private bool disposed = false;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    context.Dispose();  // Dispose DbContext
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
