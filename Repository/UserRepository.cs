@@ -1,4 +1,9 @@
 ﻿using store_management.Entity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace store_management.Repository
 {
@@ -14,9 +19,9 @@ namespace store_management.Repository
             throw new NotImplementedException();
         }
 
-        public Users GetUserByID(int studentId)
+        public Users GetUserByID(int user_id)
         {
-            throw new NotImplementedException();
+            return context.Users.Find(user_id);
         }
 
         public IEnumerable<Users> GetUsers()

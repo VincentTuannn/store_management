@@ -7,7 +7,7 @@ namespace store_management.Repository
     public interface IUserRepository : IDisposable
     {
     IEnumerable<Users> GetUsers();
-    Users GetUserByID(int studentId);
+    Users GetUserByID(int user_id);
     void InsertUser(Users user);
     void DeleteUser(int user_id);
     void UpdateUser(Users user);
