@@ -27,6 +27,8 @@ namespace store_management.Entity
         [Timestamp]
         public byte[] RowVersion { get; set; } = null!;
 
+        public virtual ICollection<Products> Products { get; set; } = new List<Products>();
+
         // Constructor parameterless (yêu cầu EF Core)
         public Categories()
         {

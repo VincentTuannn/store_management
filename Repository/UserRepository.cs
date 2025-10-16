@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
-using store_management.Infrastructure.Data;
+using store_management.Data;
 
 namespace store_management.Repository
 {
@@ -52,25 +52,6 @@ namespace store_management.Repository
         public void UpdateUser(Users user)
         {
             context.Entry(user).State = EntityState.Modified;
-        }
-
-        private bool disposed = false;
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();  // Dispose DbContext
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
