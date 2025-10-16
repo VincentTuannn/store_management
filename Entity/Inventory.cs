@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace store_management.Entity
 {
-    [Table("inventories")]
+    [Table("inventory")]
     public class Inventory
     {
         // Primary Key
@@ -32,7 +32,7 @@ namespace store_management.Entity
         public byte[] RowVersion { get; set; } = null!;
 
         // Constructor parameterless (yêu cầu EF Core)
-        public Inventories()
+        public Inventory()
         {
             // Init nếu cần thêm
         }
