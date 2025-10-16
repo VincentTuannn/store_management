@@ -2,12 +2,12 @@
 {
     public class customersDTO
     {
-        private int customer_id;
-        private string name;
-        private string email;
-        private string phone;
-        private string address;
-        private DateTime created_at;
+        private int customer_id; // id khách hàng
+        private string name; // tên khách hàng
+        private string email; // email
+        private string phone; // số điện thoại
+        private string address; // địa chỉ
+        private DateTime created_at; // thời gian tạo
 
         public customersDTO(int customer_id, string name, string email, string phone, string address, DateTime created_at)
         {

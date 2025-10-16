@@ -2,14 +2,14 @@
 {
     public class ordersDTO
     {
-        private int order_id;
-        private int customer_id;
-        private int user_id;
-        private int promo_id;
-        private DateTime order_date;
-        private string status;
-        private decimal total_amount;
-        private decimal discount_amount;
+        private int order_id; // id đơn hàng
+        private int customer_id; // id khách hàng
+        private int user_id; // id người dùng
+        private int promo_id; // id khuyến mãi
+        private DateTime order_date; // ngày đặt hàng
+        private string status; // trạng thái
+        private decimal total_amount; // tổng số tiền
+        private decimal discount_amount; // số tiền giảm giá
 
         public ordersDTO(int order_id, int customer_id, int user_id, int promo_id, DateTime order_date, string status, decimal total_amount, decimal discount_amount)
         {

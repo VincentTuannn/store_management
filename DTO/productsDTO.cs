@@ -2,14 +2,14 @@
 {
     public class productsDTO
     {
-        private int product_id;
-        private int category_id;
-        private int supplier_id;
-        private string product_name;
-        private string barcode;
-        private decimal price;
-        private string unit;
-        private DateTime created_at;
+        private int product_id; // id sản phẩm
+        private int category_id; // id loại sản phẩm
+        private int supplier_id; // id nhà cung cấp
+        private string product_name; // tên sản phẩm
+        private string barcode; // mã vạch
+        private decimal price; // giá
+        private string unit; // đơn vị tính
+        private DateTime created_at; // thời gian tạo
 
         public productsDTO(int product_id, int category_id, int supplier_id, string product_name, string barcode, decimal price, string unit, DateTime created_at)
         {

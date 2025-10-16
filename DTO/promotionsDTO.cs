@@ -2,17 +2,17 @@
 {
     public class promotionsDTO
     {
-        private int promotion_id;
-        private string promotion_code;
-        private string description;
-        private string discount_type;
-        private decimal discount_value;
-        private DateTime start_date;
-        private DateTime end_date;
-        private decimal min_order_amount;
-        private int usage_limit;
-        private int used_count;
-        private string status;
+        private int promotion_id; // id khuyến mãi
+        private string promotion_code; // mã khuyến mãi
+        private string description; // mô tả khuyến mãi
+        private string discount_type; // loại khuyến mãi
+        private decimal discount_value; // giá trị khuyến mãi
+        private DateTime start_date; // ngày bắt đầu
+        private DateTime end_date; // ngày kết thúc
+        private decimal min_order_amount; // số tiền tối thiểu đơn hàng
+        private int usage_limit; // giới hạn sử dụng
+        private int used_count; // số lần đã sử dụng
+        private string status; // trạng thái
 
         public promotionsDTO(int promotion_id, string promotion_code, string description, string discount_type, decimal discount_value, DateTime start_date, DateTime end_date, decimal min_order_amount, int usage_limit, int used_count, string status)
         {

@@ -2,11 +2,11 @@
 {
     public class suppliersDTO
     {
-        private int supplier_id;
-        private string name;
-        private string phone;
-        private string address;
-        private string email;
+        private int supplier_id; // id nhà cung cấp
+        private string name; // tên nhà cung cấp
+        private string phone; // số điện thoại
+        private string address; // địa chỉ
+        private string email; // email
 
         public suppliersDTO(int supplier_id, string name, string phone, string address, string email)
         {

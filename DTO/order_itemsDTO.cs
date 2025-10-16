@@ -2,12 +2,12 @@
 {
     public class order_itemsDTO
     {
-        private int order_item_id;
-        private int order_id;
-        private int product_id;
-        private int quantity;
-        private decimal price;
-        private decimal subtotal;
+        private int order_item_id; // id chi tiết đơn hàng
+        private int order_id; // id đơn hàng
+        private int product_id; // id sản phẩm
+        private int quantity; // số lượng
+        private decimal price; // giá
+        private decimal subtotal; // tổng tiền
 
         public order_itemsDTO(int order_item_id, int order_id, int product_id, int quantity, decimal price, decimal subtotal)
         {

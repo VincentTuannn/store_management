@@ -2,8 +2,8 @@
 {
     public class categoriesDTO
     {
-        private int category_id;
-        private string category_name;
+        private int category_id; // id loại sản phẩm
+        private string category_name; // tên loại sản phẩm
 
         public categoriesDTO(int category_id, string category_name)
         {

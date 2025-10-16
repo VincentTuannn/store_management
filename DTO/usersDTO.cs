@@ -2,12 +2,12 @@
 {
     public class usersDTO
     {
-        private int user_id;
-        private string username;
-        private string password;
-        private string full_name;
-        private string role;
-        private DateTime created_at;
+        private int user_id; // id người dùng
+        private string username; // tên đăng nhập
+        private string password; // mật khẩu
+        private string full_name; // tên đầy đủ
+        private string role; // vai trò
+        private DateTime created_at; // thờ gian tạo
 
         public usersDTO(int user_id, string username, string password, string full_name, string role, DateTime created_at)
         {

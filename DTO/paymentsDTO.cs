@@ -2,11 +2,11 @@
 {
     public class paymentsDTO
     {
-        private int payment_id;
-        private int order_id;
-        private decimal amount;
-        private DateTime payment_date;
-        private string payment_method;
+        private int payment_id; // id thanh toán
+        private int order_id; // id đơn hàng
+        private decimal amount; // số tiền
+        private DateTime payment_date; // ngày thanh toán
+        private string payment_method; // phương thức thanh toán
 
         public paymentsDTO(int payment_id, int order_id, decimal amount, DateTime payment_date, string payment_method)
         {

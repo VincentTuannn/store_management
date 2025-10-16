@@ -2,10 +2,10 @@
 {
     public class inventoryDTO
     {
-        private int inventory_id;
-        private int product_id;
-        private int quantity;
-        private DateTime updated_at;
+        private int inventory_id; // id kho
+        private int product_id; // id sản phẩm
+        private int quantity; // số lượng
+        private DateTime updated_at; // ngày cập nhật
 
         public inventoryDTO(int inventory_id, int product_id, int quantity, DateTime updated_at)
         {
