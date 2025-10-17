@@ -30,7 +30,7 @@ namespace store_management.Data
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Suppliers> Suppliers { get; set; }
         public DbSet<Products> Products { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Promotions> Promotions { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
