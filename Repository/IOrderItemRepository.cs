@@ -6,6 +6,8 @@ namespace store_management.Repository
     {
         IEnumerable<OrderItems> GetOrderItems();
         OrderItems GetOrderItemByID(int order_item_id);
+        void InsertOrderItem(OrderItems orderItem);
+        void DeleteOrderItem(int order_item_id);
         void UpdateOrderItem(OrderItems orderItem);
         void Save();
     }

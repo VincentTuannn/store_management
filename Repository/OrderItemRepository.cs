@@ -11,6 +11,16 @@ namespace store_management.Repository
         {
             this.context = context;
         }
+
+        public void DeleteOrderItem(int order_item_id)
+        {
+            OrderItems orderItem = context.OrderItems.Find(order_item_id);
+            if (orderItem != null)
+            {
+                context.OrderItems.Remove(orderItem);
+            }
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();
@@ -24,6 +34,11 @@ namespace store_management.Repository
         public IEnumerable<OrderItems> GetOrderItems()
         {
             return context.OrderItems.ToList();
+        }
+
+        public void InsertOrderItem(OrderItems orderItem)
+        {
+            context.Orders.Add(orderItem);
         }
 
         public void Save()
