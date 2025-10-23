@@ -36,9 +36,14 @@ namespace store_management.Repository
             return context.OrderItems.ToList();
         }
 
+        public List<OrderItems> GetOrderItemsByOrderId(int orderId)
+        {
+            return context.OrderItems.Where(oi => oi.OrderId == orderId).ToList();  // LINQ query
+        }
+
         public void InsertOrderItem(OrderItems orderItem)
         {
-            context.Orders.Add(orderItem);
+            context.OrderItems.Add(orderItem);
         }
 
         public void Save()

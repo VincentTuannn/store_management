@@ -8,42 +8,67 @@ namespace store_management.Service
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _repository;
+        private readonly IOrderItemRepository _orderItemRepository;
         private readonly IProductRepository _productRepository;  
         private readonly ICustomerRepository _customerRepository;
+        private readonly IPromotionService _promotionService;
         private readonly IOrderService _orderService;
         private readonly IInventoryRepository _inventoryRepository;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository repository, IProductRepository productRepository, IMapper mapper)
+        public OrderService(IOrderRepository repository, IProductRepository productRepository,
+            ICustomerRepository customerRepository, IPromotionService promotionService,
+            IInventoryRepository inventoryRepository, IMapper mapper)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
+            _promotionService = promotionService ?? throw new ArgumentNullException(nameof(promotionService));
+            _inventoryRepository = inventoryRepository ?? throw new ArgumentNullException(nameof(inventoryRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<ordersDTO> CreateOrderAsync(ordersDTO dto)
+        public async Task<ordersDTO> CreateOrderAsync(ordersDTO dto, List<order_itemsDTO> items)
         {
-            // Business logic: Check customer tồn tại, tính total từ order items, check inventory
-            var customer = _customerRepository.GetCustomerByID(dto.Customer_id);  // Giả sử inject thêm
+            // Check customer tồn tại
+            var customer = _customerRepository.GetCustomerByID(dto.Customer_id);
             if (customer == null) throw new KeyNotFoundException("Customer not found.");
 
-            // Tính total_amount từ order_items (giả sử logic)
-            dto.Total_amount = CalculateTotalFromItems(dto.OrderItems);  // Method tùy chỉnh
-            dto.Discount_amount = CalculateDiscount(dto);  // Check promotion nếu có
+            // Check items không rỗng
+            if (items == null || !items.Any()) throw new ArgumentException("Order must have at least one item.");
 
+            // Tính Total_amount từ sum(Subtotal của items)
+            dto.Total_amount = CalculateTotalFromItems(items);
+
+            // Tính Discount_amount từ Promo_id
+            dto.Discount_amount = await CalculateDiscount(dto.Promo_id, dto.Total_amount);
+
+            // Tạo Order trước (không có items)
             var order = _mapper.Map<Orders>(dto);
             _repository.InsertOrder(order);
-            _repository.Save();
+            _repository.Save();  // Commit để lấy OrderId tự tăng
 
-            // Update inventory sau tạo order
-            UpdateInventoryForOrder(order);
-
-            return _mapper.Map<ordersDTO>(order);
+            return _mapper.Map<ordersDTO>(order);  // Trả DTO (Total và Discount đã tính)
         }
 
         private decimal CalculateTotalFromItems(List<order_itemsDTO> items)
         {
             return items.Sum(i => i.Subtotal);  // Ví dụ tính tổng
+        }
+
+        //Tính discount từ Promotion
+        private async Task<decimal> CalculateDiscount(int? promoId, decimal orderAmount)
+        {
+            if (!promoId.HasValue) return 0;  // Không có promo
+
+            try
+            {
+                return await _promotionService.CalculateDiscountAsync(promoId.Value, orderAmount);
+            }
+            catch
+            {
+                return 0;  // Fallback nếu lỗi
+            }
         }
 
         public async Task DeleteOrderAsync(int id)
@@ -56,16 +81,21 @@ namespace store_management.Service
             _repository.Save();
         }
 
-        private void UpdateInventoryForOrder(Orders order)
-        {
-            foreach (var item in order.OrderItems)  // Giả sử navigation
-            {
-                var inventory = _inventoryRepository.GetInventoryByProductId(item.ProductId);
-                inventory.Quantity -= item.Quantity;
-                _inventoryRepository.UpdateInventory(inventory);
-            }
-            _inventoryRepository.Save();
-        }
+        //private void UpdateInventoryForOrder(Orders order)
+        //{
+        //    var items = _orderItemRepository.GetOrderItemsByOrderId(order.OrderId);  // Giả sử method trong Repository
+
+        //    foreach (var item in items)
+        //    {
+        //        var inventory = _inventoryRepository.GetInventoryByProductId(item.ProductId);  // PascalCase
+        //        if (inventory != null)
+        //        {
+        //            inventory.Quantity -= item.Quantity;  // PascalCase
+        //            _inventoryRepository.UpdateInventory(inventory);
+        //        }
+        //    }
+        //    _inventoryRepository.Save();
+        //}
 
         public async Task<List<ordersDTO>> GetAllOrdersAsync()
         {

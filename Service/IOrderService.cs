@@ -6,7 +6,7 @@ namespace store_management.Service
     {
         Task<List<ordersDTO>> GetAllOrdersAsync();
         Task<ordersDTO> GetOrderByIdAsync(int id);
-        Task<ordersDTO> CreateOrderAsync(ordersDTO dto);  // Tính total, check inventory
+        Task<ordersDTO> CreateOrderAsync(ordersDTO dto, List<order_itemsDTO> items);  // Tính total, check inventory
         Task UpdateOrderStatusAsync(int id, string status);
         Task DeleteOrderAsync(int id);
     }

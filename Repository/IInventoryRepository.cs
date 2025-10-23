@@ -9,6 +9,7 @@ namespace store_management.Repository
         void InsertInventory(Inventory inventory);
         void DeleteInventory(int inventory_id);
         void UpdateInventory(Inventory inventory);
+        Inventory GetInventoryByProductId(int productId);
         void Save();
     }
 }

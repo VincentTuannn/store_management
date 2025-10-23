@@ -35,6 +35,11 @@ namespace store_management.Repository
             return context.Inventory.Find(inventory_id);
         }
 
+        public Inventory GetInventoryByProductId(int productId)
+        {
+            return context.Inventory.FirstOrDefault(i => i.ProductId == productId);
+        }
+
         public void InsertInventory(Inventory inventory)
         {
             context.Inventory.Add(inventory);
